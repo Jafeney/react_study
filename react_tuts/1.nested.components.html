@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学习react</title>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script src="bower_components/react/react.js"></script>
+	<script src="bower_components/react/react-dom.js"></script>
+	<script src="bower_components/babel/browser.js"></script>
+
+	<script type="text/babel">
+		var MessageBox=React.createClass({
+			getInitialState:function(){
+				return{
+					isVisible:true,
+					titleMessage:'你好世界（来自state）'
+				}
+			},
+			clickToggle:function(){
+				if(this.state.isVisible){
+					this.setState({
+						isVisible:false
+					});
+				}else{
+					this.setState({
+						isVisible:true
+					});
+				}
+			},
+			render:function(){
+				
+				var styleObj={
+					display:this.state.isVisible?'block':'none'
+				}
+
+				return (
+					<div onClick={this.clickToggle}>
+						<h1 style={styleObj}>{this.state.titleMessage}</h1>
+						<SubMessage />
+					</div>
+				);
+			}		
+		});
+
+		var SubMessage=React.createClass({
+			render:function(){
+				return (
+					<div>
+						<h2>写代码很有意思</h2>
+						<Footer />
+					</div>
+				);
+			}
+		});
+
+		var Footer=React.createClass({
+			render:function(){
+				return (<small>Jafeney Lou</small>);
+			}
+		});
+
+		ReactDOM.render(<MessageBox />,document.getElementById('app'),function(){
+			console.log('页面渲染完成了！');
+		});
+
+	</script>
+</body>
+</html>

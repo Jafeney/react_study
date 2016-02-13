@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学习react</title>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script src="bower_components/react/react.js"></script>
+	<script src="bower_components/react/react-dom.js"></script>
+	<script src="bower_components/babel/browser.js"></script>
+
+	<script type="text/babel">
+		var FormApp=React.createClass({
+			getInitialState:function(){
+				return{
+					inputValue:'input value',
+					selectValue:'A',
+					radioValue:'B',
+					checkboxValue:['A','B','C'],
+					textareaValue:'some text here...'
+				}
+			},
+			handleInput:function(e){
+				this.setState({
+					inputValue:e.target.value
+				});
+			},
+			handleSelect:function(e){
+				this.setState({
+					selectValue:e.target.value
+				});
+			},
+			handleSubmit:function(e){
+				e.preventDefault();
+				console.log('form submitting...');
+				console.log(e);
+			},
+			render:function(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+						<p>text input </p>
+						<input type="text" value={this.state.inputValue} onChange={this.handleInput} />
+						<br/>
+						<p>select button!</p>
+						<select value={this.state.selectValue} onChange={this.handleSelect}>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+							<option value="E">E</option>
+						</select>
+						<br/>
+						<p>radio button!</p>
+						<input type="radio" name="goodRadio" value="A" />
+						<input type="radio" name="goodRadio" defaultChecked value="B" />
+						<input type="radio" name="goodRadio" value="C" />
+						<input type="radio" name="goodRadio" value="D" />
+						<input type="radio" name="goodRadio" value="E" />
+						<br/>
+						<p>checkbox button!</p>
+						<input type="checkbox" name="goodCheckbox" value="A" />
+						<input type="checkbox" name="goodCheckbox" defaultChecked value="B" />
+						<input type="checkbox" name="goodCheckbox" value="C" />
+						<input type="checkbox" name="goodCheckbox" value="D" />
+						<input type="checkbox" name="goodCheckbox" value="E" />
+						<br/>
+						<p>textarea</p>
+						<textarea defaultValue="some text here again..."></textarea>
+						<hr/>
+						<button type="submit">提交</button>
+					</form>
+				);
+			}
+		});
+
+		ReactDOM.render(<FormApp />,document.getElementById('app'),function(){
+			console.log('页面渲染完成了！');
+		});
+
+	</script>
+</body>
+</html>

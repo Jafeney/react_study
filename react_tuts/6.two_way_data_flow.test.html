@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学习react</title>
+</head>
+<body>
+	<div id="app"></div>
+	
+	<script src="bower_components/react/react-with-addons.js"></script>
+	<script src="bower_components/react/react-dom.js"></script>
+	<script src="bower_components/babel/browser.js"></script>
+
+	<script type="text/babel">
+		
+		var MyComponent=React.createClass({
+			mixins:[React.addons.LinkedStateMixin],
+			getInitialState:function(){
+				return{
+					message:'哈啊哈哈哈'
+				}
+			},
+			render:function(){
+				return (
+					<div>
+						<h1>我在父组件里说: {this.state.message}</h1>
+						<input type="text"  valueLink={this.linkState('message')} />
+						<SubComponent messageLink={this.state.message} />
+					</div>
+				);
+			}
+		});
+
+		var SubComponent=React.createClass({
+			render:function(){
+				return (<div><h2>我在子组件里说：{this.props.messageLink}</h2></div>);
+			}
+		});
+
+		ReactDOM.render(<MyComponent />,document.getElementById('app'));
+
+	</script>
+</body>
+</html>
