@@ -3,6 +3,7 @@ var React=require('react');
 var ShowAddButton=require('./ShowAddButton.js');
 var QuestionForm=require('./QuestionForm.js');
 var QuestionList=require('./QuestionList.js');
+var _=require('lodash');
 
 module.exports=React.createClass({
 	getInitialState:function(){
@@ -44,6 +45,20 @@ module.exports=React.createClass({
 		});
 		return questions;
 	},
+	onVote:function(key,newCount){
+		var questions=_.uniq(this.state.questions);
+		var index=_.findIndex(questions,function(qst){
+			return qst.key==key;
+		});
+
+		questions[index].voteCount=newCount;
+
+		questions=this.sortQuestion(questions);
+
+		this.setState({
+			questions:questions
+		});
+	},
 	render:function(){
 		return(
 			<div>
@@ -55,7 +70,7 @@ module.exports=React.createClass({
 				</div>
 				<div className="main container">
 				  	<QuestionForm onNewQuestion={this.onNewQuestion} onToggleForm={this.onToggleForm} formDisplayed={this.state.formDisplayed} />
-				  	<QuestionList  questions={this.state.questions} />
+				  	<QuestionList onVote={this.onVote} questions={this.state.questions} />
 				</div>
 			</div>
 		);

@@ -7,6 +7,9 @@ module.exports=React.createClass({
 			title:this.refs.title.value,
 			desc:this.refs.desc.value,
 			voteCount:0
+		};
+		if(!newQuestion.title){
+			return false;
 		}
 		this.refs.addQuestionForm.reset();
 		this.props.onNewQuestion(newQuestion);
